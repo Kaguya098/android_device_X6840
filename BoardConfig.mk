@@ -5,6 +5,8 @@
 
 DEVICE_PATH := device/infinix/X6840
 KERNEL_PATH := device/infinix/X6840-kernel
+CONFIGS_PATH := $(DEVICE_PATH)/configs
+TARGET_PREBUILT_KERNEL := $(KERNEL_PATH)/Image.gz
 
 BUILD_BROKEN_DUP_RULES := true
 
