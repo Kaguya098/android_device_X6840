@@ -565,6 +565,10 @@ vendor/bin/fuelgauged
 vendor/etc/init/android.hardware.health-service.example.rc
 vendor/etc/init/fuelgauged_init.rc
 vendor/etc/vintf/manifest/android.hardware.health-service.example.xml
+# KERNEL POWER OFF CHARGING (KPOC)
+system_ext/bin/kpoc_charger
+system_ext/etc/init/kpoc_charger.rc
+system_ext/lib64/libshowlogo.so
 # IR
 odm/bin/hw/android.hardware.ir-service.example
 odm/etc/init/android.hardware.ir-service.example.rc
