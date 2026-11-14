@@ -85,20 +85,34 @@ PRODUCT_COPY_FILES += \
 BOARD_PREBUILT_DTBIMAGE_DIR := $(DEVICE_PATH)/prebuilt/dtb
 BOARD_PREBUILT_DTBOIMAGE := $(DEVICE_PATH)/prebuilt/dtbo.img
 
-## vendor_boot modules
-BOARD_VENDOR_RAMDISK_KERNEL_MODULES_LOAD := $(strip $(shell cat $(DEVICE_PATH)/modules/modules.load.vendor_boot))
+# Kernel modules
+BOARD_VENDOR_RAMDISK_KERNEL_MODULES_LOAD := $(strip $(shell cat $(KERNEL_PATH)/modules/vendor_boot/modules.load))
 BOARD_VENDOR_RAMDISK_KERNEL_MODULES := $(addprefix $(KERNEL_PATH)/modules/vendor_boot/, $(BOARD_VENDOR_RAMDISK_KERNEL_MODULES_LOAD))
 
-## recovery modules
-BOARD_VENDOR_RAMDISK_RECOVERY_KERNEL_MODULES_LOAD := $(strip $(shell cat $(DEVICE_PATH)/modules/modules.load.recovery))
+# Also add recovery modules to vendor ramdisk
+BOARD_VENDOR_RAMDISK_RECOVERY_KERNEL_MODULES_LOAD := $(strip $(shell cat $(KERNEL_PATH)/modules/vendor_boot/modules.load.recovery))
 RECOVERY_MODULES := $(addprefix $(KERNEL_PATH)/modules/vendor_boot/, $(BOARD_VENDOR_RAMDISK_RECOVERY_KERNEL_MODULES_LOAD))
 
-## Prevent duplicated entries (to solve duplicated build rules problem)
+# Prevent duplicated entries (to solve duplicated build rules problem)
 BOARD_VENDOR_RAMDISK_KERNEL_MODULES := $(sort $(BOARD_VENDOR_RAMDISK_KERNEL_MODULES) $(RECOVERY_MODULES))
 
-## vendor modules
-BOARD_VENDOR_KERNEL_MODULES_LOAD := $(strip $(shell cat $(DEVICE_PATH)/modules/modules.load.vendor))
-BOARD_VENDOR_KERNEL_MODULES := $(wildcard $(KERNEL_PATH)/modules/vendor/*.ko)
+# Vendor modules (installed to vendor_dlkm)
+BOARD_VENDOR_KERNEL_MODULES_LOAD := $(strip $(shell cat $(KERNEL_PATH)/modules/vendor/modules.load))
+BOARD_VENDOR_KERNEL_MODULES := $(wildcard $(KERNEL_PATH)/modules/vendor_dlkm/*.ko)
+
+# system_dlkm
+BOARD_USES_SYSTEM_DLKMIMAGE := true
+BOARD_SYSTEM_DLKMIMAGE_FILE_SYSTEM_TYPE := erofs
+TARGET_COPY_OUT_SYSTEM_DLKM := system_dlkm
+BOARD_SYSTEM_KERNEL_MODULES_LOAD := $(strip $(shell cat $(KERNEL_PATH)/modules/system_dlkm/modules.load))
+BOARD_SYSTEM_KERNEL_MODULES := $(wildcard $(KERNEL_PATH)/modules/system_dlkm/*.ko)
+
+# odm_dlkm
+BOARD_USES_ODM_DLKMIMAGE := true
+BOARD_ODM_DLKMIMAGE_FILE_SYSTEM_TYPE := erofs
+TARGET_COPY_OUT_ODM_DLKM := odm_dlkm
+BOARD_ODM_KERNEL_MODULES_LOAD := $(strip $(shell cat $(KERNEL_PATH)/modules/odm_dlkm/modules.load))
+BOARD_ODM_KERNEL_MODULES := $(wildcard $(KERNEL_PATH)/modules/odm_dlkm/*.ko)
 
 # Partitions
 BOARD_FLASH_BLOCK_SIZE := 262144 # (BOARD_KERNEL_PAGESIZE * 64)
