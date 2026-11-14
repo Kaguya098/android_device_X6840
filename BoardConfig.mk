@@ -72,18 +72,10 @@ DEVICE_MANIFEST_FILE += $(DEVICE_PATH)/manifest.xml
 DEVICE_FRAMEWORK_COMPATIBILITY_MATRIX_FILE := \
     $(DEVICE_PATH)/framework_compatibility_matrix.xml
     
-# Kernel
-BOARD_KERNEL_IMAGE_NAME := Image.gz
+# DTB
+BOARD_PREBUILT_DTBOIMAGE := $(KERNEL_PATH)/prebuilt/dtbo.img
+BOARD_PREBUILT_DTBIMAGE_DIR := $(KERNEL_PATH)/prebuilt/dtb
 
-TARGET_NO_KERNEL_OVERRIDE := true
-TARGET_KERNEL_SOURCE := $(KERNEL_PATH)/kernel-headers
-
-LOCAL_KERNEL := $(KERNEL_PATH)/$(BOARD_KERNEL_IMAGE_NAME)
-PRODUCT_COPY_FILES += \
-	$(LOCAL_KERNEL):kernel
-
-BOARD_PREBUILT_DTBIMAGE_DIR := $(DEVICE_PATH)/prebuilt/dtb
-BOARD_PREBUILT_DTBOIMAGE := $(DEVICE_PATH)/prebuilt/dtbo.img
 
 # Kernel modules
 BOARD_VENDOR_RAMDISK_KERNEL_MODULES_LOAD := $(strip $(shell cat $(KERNEL_PATH)/modules/vendor_boot/modules.load))
@@ -182,4 +174,4 @@ WIFI_HAL_INTERFACE_COMBINATIONS += ,{{{STA}, 1}, {{NAN}, 1}}
 WIFI_HIDL_UNIFIED_SUPPLICANT_SERVICE_RC_ENTRY := true
 
 # Inherit the proprietary files
-include vendor/transsion/mssi_64_64only_cn.slim/BoardConfigVendor.mk
+include vendor/infinix/X6840/BoardConfigVendor.mk
