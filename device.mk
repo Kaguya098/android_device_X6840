@@ -127,18 +127,13 @@ PRODUCT_PACKAGES += \
 # Health
 PRODUCT_PACKAGES += \
     android.hardware.health-V1-ndk \
-    android.hardware.health@2.1-impl \
-    android.hardware.health@2.1-impl.recovery \
-    android.hardware.health@2.1-service
+    android.hardware.health-service.example \
+    android.hardware.health-service.example_recovery
 
 # HIDL 
 PRODUCT_PACKAGES += \
     libhidltransport \
     libhidltransport.vendor 
-
-# Light
-PRODUCT_PACKAGES += \
-    android.hardware.light-service.lineage
 
 # Linker
 PRODUCT_VENDOR_LINKER_CONFIG_FRAGMENTS += \
@@ -248,8 +243,6 @@ PRODUCT_PACKAGES += \
 # Power
 PRODUCT_PACKAGES += \
     android.hardware.power@1.3.vendor \
-    android.hardware.power-service.lineage-libperfmgr \
-    vendor.mediatek.hardware.mtkpower@1.2-service.stub \
     libmtkperf_client_vendor \
     libmtkperf_client
 
@@ -269,30 +262,22 @@ PRODUCT_PACKAGES += \
     fstab.mt6768.vendor_ramdisk \
     init.connectivity.rc \
     init.modem.rc \
-    init.insmod.mt6768.cfg \
     init.mtkgki.rc \
-    init.connectivity.mt6768.rc \
     init.connectivity.common.rc \
     init_connectivity.rc \
     init.mt6768.rc \
     init.cgroup.rc \
     init.insmod.sh \
-    init.X6840.usb.rc \
+    init.x6840.usb.rc \
     init.project.rc \
-    init.sensor_1_0.rc \
-    init.target.rc \
-    ueventd.mt6768.rc
-
-PRODUCT_PACKAGES += \
-    init.recovery.usb.rc
-
+    init.sensor_1_0.rc
 PRODUCT_PACKAGES += \
     libsensorndkbridge:64 \
     android.hardware.sensors@1.0.vendor:64 \
     android.hardware.sensors@2.1.vendor:64 \
     android.frameworks.sensorservice@1.0:64 \
     android.frameworks.sensorservice@1.0.vendor:64 \
-    android.hardware.sensors@2.1-service.multihal \
+    android.hardware.sensors-service.multihal \
     android.hardware.sensors@2.0-ScopedWakelock.vendor:64
 
 PRODUCT_PACKAGES += \
@@ -324,15 +309,6 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     android.hardware.usb@1.3.vendor \
     android.hardware.usb.gadget@1.1.vendor
-
-# Vibrator
-$(call soong_config_set, vibrator, vibratortargets, vibratoraidlV2target)
-
-PRODUCT_PACKAGES += \
-    vendor.qti.hardware.vibrator.service
-
-PRODUCT_COPY_FILES += \
-    vendor/qcom/opensource/vibrator/excluded-input-devices.xml:$(TARGET_COPY_OUT_VENDOR)/etc/excluded-input-devices.xml
 
 # VNDK
 PRODUCT_PACKAGES += \

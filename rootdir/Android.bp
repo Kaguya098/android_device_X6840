@@ -184,3 +184,10 @@ prebuilt_etc {
     src: "etc/fstab.mt6768",
     vendor: true,
 }
+
+prebuilt_etc {
+    name: "fstab.mt6768.vendor_ramdisk",
+    srcs: ["etc/fstab.mt6768"],
+    dsts: ["fstab.mt6768"],
+    vendor_ramdisk: true,
+}

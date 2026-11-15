@@ -1053,6 +1053,6 @@ on property:sys.boot_completed=1
 #USD: add auto set pid  by dongyun.liu 20240821 end
 
 # USD:add custom factory reset by jian.yang2 20250630 start
-on property:persist.vendor.tran.wipedata=1 && property:ro.boot.atm=enable
-    tran_factory_reset
+# on property:persist.vendor.tran.wipedata=1 && property:ro.boot.atm=enable
+#     tran_factory_reset
 # USD:add custom factory reset by jian.yang2 20250630 end

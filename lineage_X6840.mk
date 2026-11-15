@@ -4,6 +4,8 @@
 # SPDX-License-Identifier: Apache-2.0
 #
 
+TARGET_REQUIRES_HIDL_CAS_HAL := false
+
 # Inherit from those products. Most specific first.
 $(call inherit-product, $(SRC_TARGET_DIR)/product/core_64_bit_only.mk)
 $(call inherit-product, $(SRC_TARGET_DIR)/product/full_base_telephony.mk)
@@ -20,7 +22,7 @@ PRODUCT_MANUFACTURER := Infinix
 PRODUCT_BRAND := Infinix
 PRODUCT_MODEL := SMART 20
 
-PRODUCT_SYSTEM_NAME := SMART 20
+PRODUCT_SYSTEM_NAME := X6840-OP
 PRODUCT_SYSTEM_DEVICE := X6840
 
 PRODUCT_GMS_CLIENTID_BASE := android-transsion
