@@ -43,12 +43,13 @@ blob_fixups: blob_fixups_user_type = {
     'vendor/bin/hw/android.hardware.media.c2@1.2-mediatek-64b': blob_fixup()
         .add_needed('libstagefright_foundation-v33.so')
         .replace_needed('libavservices_minijail_vendor.so', 'libavservices_minijail.so'),
-    'vendor/lib64/hw/android.hardware.gnss-impl-mediatek.so': blob_fixup()
-        .replace_needed('android.hardware.gnss-V1-ndk_platform.so', 'android.hardware.gnss-V1-ndk.so'),
     'vendor/bin/hw/vendor.mediatek.hardware.mtkpower@1.0-service': blob_fixup()
         .replace_needed('android.hardware.power-V2-ndk_platform.so', 'android.hardware.power-V2-ndk.so'),
     ('vendor/bin/mnld', 'vendor/lib64/libaalservice.so'): blob_fixup()
-        .replace_needed('libsensorndkbridge.so', 'android.hardware.sensors@1.0-convert-shared.so'),
+        .replace_needed('libsensorndkbridge.so', 'android.hardware.sensors@1.0-convert-shared.so')
+        .replace_needed('android.hardware.sensors-V2-ndk.so', 'android.hardware.sensors-V3-ndk.so'),
+    'vendor/lib64/libcam.utils.sensorprovider.so': blob_fixup()
+        .replace_needed('android.hardware.sensors-V2-ndk.so', 'android.hardware.sensors-V3-ndk.so'),
     'vendor/lib64/hw/vendor.mediatek.hardware.pq@2.15-impl.so': blob_fixup()
         .replace_needed('libutils.so', 'libutils-v32.so')
         .replace_needed('libsensorndkbridge.so', 'android.hardware.sensors@1.0-convert-shared.so'),
@@ -72,6 +73,61 @@ blob_fixups: blob_fixups_user_type = {
         .remove_needed('libTran_mtkPowerAPI.so'),
     'vendor/lib64/libcodec2_mtk_vdec.so': blob_fixup()
         .remove_needed('libcodec2_vpp_rs_tran_shju_plugin.so'),
+    'vendor/lib64/libmtkcam_hal_aidl_common.so': blob_fixup()
+        .remove_needed('android.hardware.camera.common-V2-ndk.so'),
+    (
+        'vendor/bin/hw/android.hardware.graphics.allocator-V2-service-mediatek',
+        'vendor/lib64/egl/libGLES_mali.so',
+        'vendor/lib64/hw/android.hardware.graphics.allocator-V2-mediatek.so',
+        'vendor/lib64/hw/mapper.mediatek.so',
+        'vendor/lib64/libcodec2_fsr.so',
+        'vendor/lib64/libgpud.so',
+        'vendor/lib64/libmtkcam_grallocutils.so',
+        'vendor/lib64/vendor.mediatek.hardware.camera.isphal-V1-ndk.so',
+        'vendor/lib64/vendor.mediatek.hardware.pq_aidl-V8-ndk.so',
+    ): blob_fixup()
+        .replace_needed('android.hardware.graphics.common-V5-ndk.so', 'android.hardware.graphics.common-V7-ndk.so'),
+    'vendor/lib64/hw/android.hardware.soundtrigger3-impl.so': blob_fixup()
+        .replace_needed('android.hardware.soundtrigger3-V2-ndk.so', 'android.hardware.soundtrigger3-V3-ndk.so'),
+    'vendor/lib64/android.hardware.audio.core-impl-mediatek.so': blob_fixup()
+        .add_needed('libaudioutils_shim.so')
+        .replace_needed('android.hardware.audio.core-V2-ndk.so', 'android.hardware.audio.core-V3-ndk.so')
+        .replace_needed('android.hardware.audio.core.sounddose-V2-ndk.so', 'android.hardware.audio.core.sounddose-V3-ndk.so')
+        .replace_needed('android.hardware.bluetooth.audio-V4-ndk.so', 'android.hardware.bluetooth.audio-V5-ndk.so')
+        .replace_needed('android.media.audio.common.types-V3-ndk.so', 'android.media.audio.common.types-V4-ndk.so'),
+    'vendor/lib64/hw/android.hardware.audio.effect.aidl-impl-mediatek.so': blob_fixup()
+        .replace_needed('android.hardware.audio.effect-V2-ndk.so', 'android.hardware.audio.effect-V3-ndk.so')
+        .replace_needed('android.media.audio.common.types-V3-ndk.so', 'android.media.audio.common.types-V4-ndk.so'),
+    'vendor/bin/hw/android.hardware.audio.service-aidl.mediatek': blob_fixup()
+        .replace_needed('android.hardware.soundtrigger3-V2-ndk.so', 'android.hardware.soundtrigger3-V3-ndk.so')
+        .replace_needed('android.hardware.audio.core-V2-ndk.so', 'android.hardware.audio.core-V3-ndk.so')
+        .replace_needed('android.hardware.audio.core.sounddose-V2-ndk.so', 'android.hardware.audio.core.sounddose-V3-ndk.so')
+        .replace_needed('android.hardware.bluetooth.audio-V4-ndk.so', 'android.hardware.bluetooth.audio-V5-ndk.so')
+        .replace_needed('android.media.audio.common.types-V3-ndk.so', 'android.media.audio.common.types-V4-ndk.so'),
+    'vendor/lib64/libaudioprimarydevicehalifclient.so': blob_fixup()
+        .replace_needed('android.hardware.audio.core-V2-ndk.so', 'android.hardware.audio.core-V3-ndk.so'),
+    ('vendor/lib64/android.hardware.bluetooth.audio-impl-mediatek.so', 'vendor/lib64/libbluetooth_audio_session_aidl_mtk.so'): blob_fixup()
+        .replace_needed('android.hardware.bluetooth.audio-V4-ndk.so', 'android.hardware.bluetooth.audio-V5-ndk.so'),
+    'vendor/lib64/vendor.mediatek.hardware.bluetooth.audio-V1-ndk.so': blob_fixup()
+        .replace_needed('android.hardware.audio.common-V3-ndk.so', 'android.hardware.audio.common-V4-ndk.so'),
+    'odm/lib64/libTranssionTone.so': blob_fixup()
+        .add_needed('libc++_shared.so'),
+    'odm/lib64/libsegmention.so': blob_fixup()
+        .add_needed('libtflite_native_gainference.so'),
+    'odm/lib64/libeffect_hal.so': blob_fixup()
+        .clear_symbol_version('AHardwareBuffer_allocate')
+        .clear_symbol_version('AHardwareBuffer_describe')
+        .clear_symbol_version('AHardwareBuffer_lockPlanes')
+        .clear_symbol_version('AHardwareBuffer_release')
+        .clear_symbol_version('AHardwareBuffer_unlock'),
+    (
+        'odm/lib64/libmmc5603_x6840.so',
+        'odm/lib64/libocs_mtk_aurisys.so',
+        'odm/lib64/libqmc6308_x6840.so',
+        'odm/lib64/libvpnr_enroll.so',
+        'odm/lib64/libvpnr.so',
+    ): blob_fixup()
+        .fix_soname(),
 }  # fmt: skip
 
 module = ExtractUtilsModule(
